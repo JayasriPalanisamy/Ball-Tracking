@@ -1,4 +1,4 @@
 # Ball-Tracking
-Ball Tracking with OpenCV and ROS
-This is assignment-8 of the udemy course - "ROS for Beginners: Basics, Motion, and OpenCV".\
-Instructor: Dr.Anis Koubaa
+This is a project that detects tennis ball from video stream frames using OpenCV and ROS.\
+This is assignment-8 of the Udemy course - "ROS for Beginners: Basics, Motion, and OpenCV".\
+### Instructor: #### Dr.Anis Koubaa
