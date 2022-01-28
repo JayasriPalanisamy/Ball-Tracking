@@ -4,10 +4,9 @@ import numpy as np
 import cv2
 
 def read_rgb_image(image_name, show):
-    rgb_image = cv2.imread(image_name)
     if show: 
-        cv2.imshow("RGB Image",rgb_image)
-    return rgb_image
+        cv2.imshow("RGB Image",image_name)
+    return image_name
 
 def filter_color(rgb_image, lower_bound_color, upper_bound_color):
     #convert the image into the HSV color space
@@ -62,15 +61,25 @@ def get_contour_center(contour):
     return cx, cy
 
 def main():
-    image_name = "images/tennisball05.jpg"
+    video_capture = cv2.VideoCapture('videos/tennis-ball-video.mp4')
+
     yellowLower =(30, 150, 100)
     yellowUpper = (50, 255, 255)
-    rgb_image = read_rgb_image(image_name, True)
-    binary_image_mask = filter_color(rgb_image, yellowLower, yellowUpper)
-    contours = getContours(binary_image_mask)
-    draw_ball_contour(binary_image_mask, rgb_image,contours)
 
-    cv2.waitKey(0)
+    while True:
+        ret, frame = video_capture.read()
+
+        cv2.imshow("Video-Frame", frame)
+
+        rgb_image = read_rgb_image(frame, True)
+        binary_image_mask = filter_color(rgb_image, yellowLower, yellowUpper)
+        contours = getContours(binary_image_mask)  
+        draw_ball_contour(binary_image_mask, rgb_image,contours)      
+        
+        if cv2.waitKey(100) & 0xff == ord('q'):
+            break
+    
+    cv2.waitKey(0)    
     cv2.destroyAllWindows()
 
 if __name__ == '__main__':
@@ -78,5 +87,3 @@ if __name__ == '__main__':
 
 
 
-cv2.waitKey(0)
-cv2.destroyAllWindows()
